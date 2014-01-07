@@ -21,8 +21,8 @@ if ($nome && $descricao) {
     }
 }
 
-$consulta  =$conn->prepare("SELECT * FROM categorias");
-$consulta ->execute();
+$consulta = $conn->prepare("SELECT * FROM categorias");
+$consulta->execute();
 ?>
 <div class="col-md-6">
     <form class="form-horizontal" role="form" method="POST" name="frmcadastro">
