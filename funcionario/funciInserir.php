@@ -7,10 +7,20 @@ $funcao = $_POST['funcao'];
 $funcaoOrde = $_GET['funcao'];
 
 if ($nome && $cpf) {
-    pg_query("insert into funcionario(nome,cpf,funcao)values('$nome','$cpf','$funcao')");
-    header("location: funciDados.php");
+ try {
+        $stmt = $conn->prepare('INSERT INTO funcionario(nome,cpf,funcao)VALUES(:nome, :cpf, :funcao)');
+        $stmt->execute(array(
+            ':nome'   => $nome,
+            ':cpf'    => $cpf,
+            ':funcao' => $funcao,
+        ));
+        header("Location: funciDados.php");
+    } catch (Exception $e) {
+        echo 'Error:' . $e->getMessage();
+    }
 }
-$consulta = pg_query("SELECT * from funcao order by nome='$funcaoOrde' desc;");
+$consulta = $conn->prepare("SELECT * FROM funcao order by nome = '$funcaoOrde' desc;");
+$consulta->execute();
 ?>
 <div class="col-md-6">
     <form class="form-horizontal" role="form" method="POST" name="frmcadastro">
@@ -33,7 +43,7 @@ $consulta = pg_query("SELECT * from funcao order by nome='$funcaoOrde' desc;");
                         <label for="inputcodigo3" class="col-sm-2 control-label">Função:</label>
                         <div class="col-sm-10">
                             <select name="funcao">
-                                <?php while ($linha = pg_fetch_object($consulta)): ?>
+                                <?php while ($linha = $consulta->fetch(PDO::FETCH_OBJ)): ?>
                                     <option value="<?php echo $linha->id; ?>"><?php echo $linha->nome; ?></option>
                                 <?php endwhile; ?>
                             </select>
