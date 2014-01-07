@@ -1,8 +1,8 @@
 <?php
-session_start();
-if (!$_SESSION['nome'] && !$_SESSION['cpf']) {
-    header("Location: index.php");
-}
+//session_start();
+//if (!$_SESSION['nome'] && !$_SESSION['cpf']) {
+//    header("Location: index.php");
+//}
 ?>
 
 <!DOCTYPE html>
