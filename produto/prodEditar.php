@@ -11,11 +11,12 @@ $categoriaOrde = $_GET['categoria'];
 if ($nome && $descricao) {
 
     try {
-        $stmt = $conn->prepare('INSERT INTO produto(nome,descricao,codigo,categoria)VALUES(:nome, :descricao, :codigo, :categoria)');
+        $stmt = $conn->prepare('UPDATE produto SET nome = :nome, descricao = :descricao, codigo = :codigo, categoria = :categoria WHERE id = :id');
         $stmt->execute(array(
-            ':nome' => $nome,
+            ':id'        => $id,
+            ':nome'      => $nome,
             ':descricao' => $descricao,
-            ':codigo' => $codigo,
+            ':codigo'    => $codigo,
             ':categoria' => $categoria,
         ));
         header("Location: prodDados.php");
