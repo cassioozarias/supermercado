@@ -2,10 +2,8 @@
 include '../menuPrincipal.php';
 include '../conexao.php';
 
-$consulta = pg_query("SELECT p.id, p.nome, p.descricao, p.codigo, c.nome as categoria
-from produto  p
-inner join categorias c on (p.categoria = c.id)
-order by p.id;")
+$rs =$conn->prepare("SELECT * FROM produto order by id");
+$rs->execute();
 ?>
     <div class="col-md-7 float- bottom- col-lg-offset-3 ">
         <a href="prodInserir.php" class="btn btn-success">Novo Produto</a>
@@ -19,7 +17,7 @@ order by p.id;")
                 <th>Editar</th>
                 <th>Excluir</th>
             </tr>
-            <?php while ($linha = pg_fetch_object($consulta)): ?>
+            <?php while ($linha = $rs->fetch(PDO::FETCH_OBJ)): ?>
                 <tr> 
                     <td><?php echo $linha->id; ?></td>
                     <td><?php echo $linha->nome; ?></td>
