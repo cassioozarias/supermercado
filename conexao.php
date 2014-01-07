@@ -1,13 +1,12 @@
 <?php
 
-$servidor = "127.0.0.1";
-$port     = "5432";
+$servidor = "localhost";
 $dbname   = "supermercado";
 $usuario  = "supermercado";
 $senha    = "supermercado";
 
-$conexao  = pg_connect("host=$servidor port= $port dbname= $dbname user= $usuario password= $senha") or die("Erro ao conectar no banco");
-
-
-
-?>
+try {
+    $conn = new PDO("pgsql:dbname=$dbname; host=$servidor","$usuario","$senha");
+} catch (Exception $exc) {
+  echo $exc->getMessage();
+}
