@@ -1,8 +1,8 @@
 <?php
-//session_start();
-//if (!$_SESSION['nome'] && !$_SESSION['cpf']) {
-//    header("Location: index.php");
-//}
+session_start();
+if (!$_SESSION['login'] && !$_SESSION['senha']) {
+    header("Location: ../index.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +19,7 @@
             <li><a href="../produto/prodDados.php">Produto</a></li>
             <li><a href="../fornecedor/fornDados.php">Fornecedor</a></li>
             <li><a href="../funcionario/funciDados.php">Funcinário</a></li>
+            <li><a href="../usuario/usuaDados.php">Usuário</a></li>
             <li><a href="../categoria/cateDados.php">Categoria</a></li>
             <li><a href="../funcao/funcDados.php">Função</a></li>
             <li><a href="../sair.php">Sair</a></li>
