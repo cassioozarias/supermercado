@@ -1,9 +1,6 @@
 <?php
 include '../menuPrincipal.php';
 include '../conexao.php';
-if ($_SESSION['permitido'] != 1){
-    header("Location: ../index.php");
-}
     
 $rs = $conn->prepare("SELECT p.id, p.nome, p.descricao, p.codigo, p.preco, c.nome as categoria
 from produto p
