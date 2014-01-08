@@ -8,7 +8,7 @@ $cpf = $_POST['cpf'];
 if ($nome && $cpf) {
 
     try {
-        $stmt = $conn->prepare('INSERT INTO forncedor(nome,cpf)VALUES(:nome, :cpf)');
+        $stmt = $conn->prepare('INSERT INTO fornecedor(nome,cpf)VALUES(:nome, :cpf)');
         $stmt->execute(array(
             ':nome'   => $nome,
             ':cpf'    => $cpf,
