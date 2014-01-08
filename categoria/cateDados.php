@@ -2,7 +2,8 @@
 include '../menuPrincipal.php';
 include '../conexao.php';
 
-$consulta = pg_query("SELECT * from categorias order by id;");
+$consulta =$conn->prepare("SELECT * from categorias order by id;");
+$consulta->execute();
 ?>
 
 <div class="col-md-7 float- bottom- col-lg-offset-3 ">
@@ -14,7 +15,7 @@ $consulta = pg_query("SELECT * from categorias order by id;");
             <th>Editar</th>
             <th>Excluir</th>
         </tr>
-        <?php while ($linha = pg_fetch_object($consulta)): ?>
+        <?php while ($linha = $consulta->fetch(PDO::FETCH_OBJ)): ?>
             <tr> 
                 <td><?php echo $linha->id; ?></td>
                 <td><?php echo $linha->nome; ?></td>
