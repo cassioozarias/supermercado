@@ -6,9 +6,22 @@ $nome = $_POST['nome'];
 $cpf = $_POST['cpf'];
 
 if ($nome && $cpf) {
-    pg_query("UPDATE fornecedor SET nome ='$nome', cpf = '$cpf'where id =  $id;");
-    header("location: fornDados.php");
+    
+try {
+        $stmt = $conn->prepare('UPDATE fornecerdor SET nome = :nome WHERE id = :id');
+        $stmt->execute(array(
+            ':id'     => $id,
+            ':nome'   => $nome,
+            ':cpf'   => $cpf,
+            
+        ));
+        header("Location: fornDados.php");
+    } catch (Exception $e) {
+        echo 'Error:' . $e->getMessage();
+    }
 }
+$consulta = $conn->prepare("SELECT * FROM funcao order by nome = '$nomeOrde' desc;");
+$consulta->execute();
 ?>
         <div class="col-md-6">
             <form class="form-horizontal" role="form" method="POST" name="frmcadastro">
