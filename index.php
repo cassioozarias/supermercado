@@ -1,33 +1,30 @@
 <?php
-//include './conexao.php';
-//$nome = $_POST['nome'];
-//$cpf = $_POST['cpf'];
-//
-//if ($nome && $cpf) {
-//    $consulta = pg_query("SELECT * from funcionario ;");
-//    while ($linha = pg_fetch_object($consulta)) {
-//        $linha->nome;
-//        $linha->cpf;
-//        if ($linha->nome == $nome && $linha->cpf == $cpf) {
-//            session_start();
-//            $_SESSION['nome'] = $nome;
-//            $_SESSION['cpf'] = $cpf;
-//        }
-//    }
-//    if ($_SESSION['nome'] && $_SESSION['cpf']) {
-//        header("Location: home.php");
-//    }
-//}
+include './conexao.php';
+$login = $_POST['login'];
+$senha = $_POST['senha'];
+
+if ($login && $senha) {
+    $consulta = $conn->prepare("SELECT * from usuario");
+    $consulta->execute();
+while ($linha = $consulta->fetch(PDO::FETCH_OBJ)){
+        if ($linha->login == $login && $linha->senha == $senha) {
+            session_start();
+            $_SESSION['login'] = $login;
+            $_SESSION['senha'] = $senha;
+        }
+    }
+    if ($_SESSION['login'] && $_SESSION['senha']) {
+        header("Location: home.php");
+    }
+}
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
         <title>Tela de login</title>
-        <link rel="stylesheet"  type="text/css" href="sair.css" />
         <link rel="stylesheet" type="text/css"  href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css"  href="css/bootstrap-theme.min.css" />
-        <link rel="stylesheet" type="text/css"  href="menu_principal.css"/>
         <meta charset="utf-8"/> 
     </head>
     <body>
@@ -38,15 +35,15 @@
                         <legend>Faça seu Login</legend>
                         <div class="alert-info">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Nome:</label>
+                                <label class="col-sm-2 control-label">Login:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="inputLoginl3" name="nome" placeholder="Digite Seu Nome" required>
+                                    <input type="text" class="form-control" name="login" placeholder="Digite Seu Login" >
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">CPF:</label>
+                                <label class="col-sm-2 control-label">Senha:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="inputPassword3" name="cpf" placeholder="Digite seu CPF" required>
+                                    <input type="password" class="form-control" name="senha" placeholder="Digite seu Senha" >
                                 </div>
                             </div>
                         </div>
