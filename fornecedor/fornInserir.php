@@ -5,6 +5,10 @@ if ($_SESSION['permitido'] != 1){
     header("Location: ../index.php");
 }
 
+if ($_SESSION['permitido'] != 1){
+    header("Location: ../index.php");
+}
+
 $nome = $_POST['nome'];
 $cpf = $_POST['cpf'];
 
