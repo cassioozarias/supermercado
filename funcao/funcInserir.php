@@ -4,9 +4,19 @@ include '../conexao.php';
 $nome = $_POST['nome'];
 
 if ($nome) {
-    pg_query("insert into funcao(nome)values('$nome')");
-    header("location: funcDados.php");
+ 
+ try {
+        $stmt = $conn->prepare('INSERT INTO funcao(nome)VALUES(:nome)');
+        $stmt->execute(array(
+            ':nome'   => $nome,
+        ));
+        header("Location: funcDados.php");
+    } catch (Exception $e) {
+        echo 'Error:' . $e->getMessage();
+    }
 }
+$consulta = $conn->prepare("SELECT * FROM funcao order by nome = '$funcaoOrde' desc;");
+$consulta->execute();
 ?>
 <div class="col-md-6">
     <form class="form-horizontal" role="form" method="POST" name="frmcadastro">

@@ -2,5 +2,12 @@
 include '../conexao.php';
 $id = $_GET['id'];
 
-pg_query("delete from funcao where id = $id;");
-header("Location: funcDados.php");
+
+try {
+    $stmt = $conn->prepare('DELETE FROM funcao WHERE id =:id');
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    header("Location: funcDados.php");
+} catch (PDOException $e) {
+    echo 'Error:' . $e->getMessage();
+}

@@ -3,11 +3,23 @@ include '../menuPrincipal.php';
 include '../conexao.php';
 $id = $_GET['id'];
 $nome = $_POST['nome'];
+$nomeOrde = $_GET['nome'];
 
 if ($nome) {
-    pg_query("UPDATE funcao SET nome = '$nome' where id =  $id;");
-    header("location: funcDados.php");
+    
+    try {
+        $stmt = $conn->prepare('UPDATE funcao SET nome = :nome WHERE id = :id');
+        $stmt->execute(array(
+            ':id'     => $id,
+            ':nome'   => $nome,
+        ));
+        header("Location: funcDados.php");
+    } catch (Exception $e) {
+        echo 'Error:' . $e->getMessage();
+    }
 }
+$consulta = $conn->prepare("SELECT * FROM funcao order by nome = '$nomeOrde' desc;");
+$consulta->execute();
 ?>
         <div class="col-md-6">
             <form class="form-horizontal" role="form" method="POST" name="frmcadastro">
