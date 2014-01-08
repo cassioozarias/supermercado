@@ -4,9 +4,18 @@ include '../conexao.php';
 $nome = $_POST['nome'];
 
 if ($nome) {
-    pg_query("insert into categorias(nome)values('$nome')");
-    header("location: cateDados.php");
+   try {
+        $stmt = $conn->prepare('INSERT INTO categorias (nome)VALUES(:nome)');
+        $stmt->execute(array(
+            ':nome'   => $nome,
+        ));
+        header("Location: cateDados.php");
+    } catch (Exception $e) {
+        echo 'Error:' . $e->getMessage();
+    }
 }
+$consulta = $conn->prepare("SELECT * FROM categorias order by nome = '$nomeOrde' desc;");
+$consulta->execute();
 ?>
 <div class="col-md-6">
     <form class="form-horizontal" role="form" method="POST" name="frmcadastro">
