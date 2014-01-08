@@ -2,5 +2,11 @@
 include '../conexao.php';
 $id = $_GET['id'];
 
-pg_query("delete from categorias where id = $id;");
-header("Location: cateDados.php");
+try {
+    $stmt = $conn->prepare('DELETE FROM categorias WHERE id =:id');
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    header("Location: cateDados.php");
+} catch (PDOException $e) {
+    echo 'Error:' . $e->getMessage();
+}
