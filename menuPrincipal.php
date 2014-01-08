@@ -21,7 +21,7 @@ if (!$_SESSION['login'] && !$_SESSION['senha']) {
             <li><a href="../fornecedor/fornDados.php">Fornecedor</a></li>
             <?php endif; ?>
             <?php if ($_SESSION['permitido'] == 1): ?>
-            <li><a href="../funcionario/funciDados.php">Funcinário</a></li>
+            <li><a href="../funcionario/funciDados.php">Funcionário</a></li>
             <?php endif; ?>
             <?php if ($_SESSION['permitido'] == 1): ?>
                 <li><a href="../usuario/usuaDados.php">Usuário</a></li>
