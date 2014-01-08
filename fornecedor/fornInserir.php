@@ -6,9 +6,20 @@ $cpf = $_POST['cpf'];
 
 
 if ($nome && $cpf) {
-    pg_query("insert into fornecedor(nome,cpf)values('$nome','$cpf')");
-    header("location: fornDados.php");
+
+    try {
+        $stmt = $conn->prepare('INSERT INTO forncedor(nome,cpf)VALUES(:nome, :cpf)');
+        $stmt->execute(array(
+            ':nome'   => $nome,
+            ':cpf'    => $cpf,
+        ));
+        header("Location: fornDados.php");
+    } catch (Exception $e) {
+        echo 'Error:' . $e->getMessage();
+    }
 }
+$consulta = $conn->prepare("SELECT * FROM fornecedor order by nome = '$nomeOrde' desc;");
+$consulta->execute();
 ?>
 <div class="col-md-6">
     <form class="form-horizontal" role="form" method="POST" name="frmcadastro">
