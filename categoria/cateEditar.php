@@ -5,9 +5,19 @@ $id = $_GET['id'];
 $nome = $_POST['nome'];
 
 if ($nome) {
-    pg_query("UPDATE categorias SET nome = '$nome' where id =  $id;");
-    header("location: cateDados.php");
+ try {
+        $stmt = $conn->prepare('UPDATE categorias SET nome = :nome WHERE id = :id');
+        $stmt->execute(array(
+            ':id'     => $id,
+            ':nome'   => $nome,
+        ));
+        header("Location: cateDados.php");
+    } catch (Exception $e) {
+        echo 'Error:' . $e->getMessage();
+    }
 }
+$consulta = $conn->prepare("SELECT * FROM categoria order by nome = '$nomeOrde' desc;");
+$consulta->execute();
 ?>
         <div class="col-md-6">
             <form class="form-horizontal" role="form" method="POST" name="frmcadastro">
