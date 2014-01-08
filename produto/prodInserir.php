@@ -1,6 +1,10 @@
 <?php
 include '../menuPrincipal.php';
 include '../conexao.php';
+if ($_SESSION['permitido'] != 1){
+    header("Location: ../index.php");
+}
+
 $nome      = $_POST['nome'];
 $descricao = $_POST['descricao'];
 $codigo    = $_POST['codigo'];
