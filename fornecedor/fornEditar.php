@@ -8,7 +8,7 @@ $cpf = $_POST['cpf'];
 if ($nome && $cpf) {
     
 try {
-        $stmt = $conn->prepare('UPDATE fornecerdor SET nome = :nome WHERE id = :id');
+        $stmt = $conn->prepare('UPDATE fornecedor SET nome = :nome, cpf = :cpf WHERE id = :id');
         $stmt->execute(array(
             ':id'     => $id,
             ':nome'   => $nome,
@@ -20,7 +20,7 @@ try {
         echo 'Error:' . $e->getMessage();
     }
 }
-$consulta = $conn->prepare("SELECT * FROM funcao order by nome = '$nomeOrde' desc;");
+$consulta = $conn->prepare("SELECT * FROM fornecedor order by nome = '$nomeOrde' desc;");
 $consulta->execute();
 ?>
         <div class="col-md-6">
