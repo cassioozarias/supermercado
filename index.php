@@ -1,23 +1,23 @@
 <?php
-include './conexao.php';
-$nome = $_POST['nome'];
-$cpf = $_POST['cpf'];
-
-if ($nome && $cpf) {
-    $consulta = pg_query("SELECT * from funcionario ;");
-    while ($linha = pg_fetch_object($consulta)) {
-        $linha->nome;
-        $linha->cpf;
-        if ($linha->nome == $nome && $linha->cpf == $cpf) {
-            session_start();
-            $_SESSION['nome'] = $nome;
-            $_SESSION['cpf'] = $cpf;
-        }
-    }
-    if ($_SESSION['nome'] && $_SESSION['cpf']) {
-        header("Location: home.php");
-    }
-}
+//include './conexao.php';
+//$nome = $_POST['nome'];
+//$cpf = $_POST['cpf'];
+//
+//if ($nome && $cpf) {
+//    $consulta = pg_query("SELECT * from funcionario ;");
+//    while ($linha = pg_fetch_object($consulta)) {
+//        $linha->nome;
+//        $linha->cpf;
+//        if ($linha->nome == $nome && $linha->cpf == $cpf) {
+//            session_start();
+//            $_SESSION['nome'] = $nome;
+//            $_SESSION['cpf'] = $cpf;
+//        }
+//    }
+//    if ($_SESSION['nome'] && $_SESSION['cpf']) {
+//        header("Location: home.php");
+//    }
+//}
 ?>
 
 <!DOCTYPE html>
