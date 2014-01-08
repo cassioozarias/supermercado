@@ -1,6 +1,9 @@
 <?php
 include '../menuPrincipal.php';
 include '../conexao.php';
+if ($_SESSION['permitido'] != 1){
+    header("Location: ../index.php");
+}
 $id    = $_GET['id'];
 $login = $_POST['login'];
 $senha = $_POST['senha'];

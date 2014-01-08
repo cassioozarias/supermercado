@@ -1,6 +1,9 @@
 <?php
 include '../menuPrincipal.php';
 include '../conexao.php';
+if ($_SESSION['permitido'] != 1){
+    header("Location: ../index.php");
+}
 
 $consulta =$conn->prepare("SELECT * from usuario order by id;");
 $consulta->execute();

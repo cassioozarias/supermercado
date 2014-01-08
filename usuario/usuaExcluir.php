@@ -1,6 +1,9 @@
 <?php
 
 include '../conexao.php';
+if ($_SESSION['permitido'] != 1){
+    header("Location: ../index.php");
+}
 $id = $_GET['id'];
 
 try {

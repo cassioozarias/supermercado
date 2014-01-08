@@ -6,14 +6,16 @@ $senha = $_POST['senha'];
 if ($login && $senha) {
     $consulta = $conn->prepare("SELECT * from usuario");
     $consulta->execute();
-while ($linha = $consulta->fetch(PDO::FETCH_OBJ)){
+    while ($linha = $consulta->fetch(PDO::FETCH_OBJ)) {
         if ($linha->login == $login && $linha->senha == $senha) {
             session_start();
             $_SESSION['login'] = $login;
             $_SESSION['senha'] = $senha;
+            $_SESSION['permitido'] = $linha->permitido;
         }
     }
-    if ($_SESSION['login'] && $_SESSION['senha']) {
+    
+    if($_SESSION['login']  && $_SESSION['senha'] ){
         header("Location: home.php");
     }
 }
