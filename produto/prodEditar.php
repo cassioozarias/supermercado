@@ -5,18 +5,20 @@ $id = $_GET['id'];
 $nome = $_POST['nome'];
 $descricao = $_POST['descricao'];
 $codigo = $_POST['codigo'];
+$preco = $_POST['preco'];
 $categoria = $_POST['categoria'];
 $categoriaOrde = $_GET['categoria'];
 
 if ($nome && $descricao) {
 
     try {
-        $stmt = $conn->prepare('UPDATE produto SET nome = :nome, descricao = :descricao, codigo = :codigo, categoria = :categoria WHERE id = :id');
+        $stmt = $conn->prepare('UPDATE produto SET nome = :nome, descricao = :descricao, codigo = :codigo, preco =:preco, categoria = :categoria WHERE id = :id');
         $stmt->execute(array(
             ':id'        => $id,
             ':nome'      => $nome,
             ':descricao' => $descricao,
             ':codigo'    => $codigo,
+            ':preco'    => $preco,
             ':categoria' => $categoria,
         ));
         header("Location: prodDados.php");
@@ -51,7 +53,13 @@ $consulta->execute();
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputcodigo3" class="col-sm-2 control-label">Categoria:</label>
+                    <label for="inputpreco3" class="col-sm-2 control-label">Preço:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="preco" class="col-lg-10" id="inputpreco3" placeholder="Digite o Preço" required value="<?php echo $_GET['preco']; ?>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputcategoria3" class="col-sm-2 control-label">Categoria:</label>
                     <div class="col-sm-10">
                         <select name="categoria">
                             <?php while ($linha = $consulta->fetch(PDO::FETCH_OBJ)): ?>
