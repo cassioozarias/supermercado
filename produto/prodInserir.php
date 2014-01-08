@@ -1,19 +1,21 @@
 <?php
 include '../menuPrincipal.php';
 include '../conexao.php';
-$nome = $_POST['nome'];
+$nome      = $_POST['nome'];
 $descricao = $_POST['descricao'];
-$codigo = $_POST['codigo'];
+$codigo    = $_POST['codigo'];
+$preco     = $_POST['preco'];
 $categoria = $_POST['categoria'];
 
 if ($nome && $descricao) {
     try {
-        $stmt = $conn->prepare('INSERT INTO produto(nome,descricao,codigo,categoria)VALUES(:nome, :descricao, :codigo, :categoria)');
+        $stmt = $conn->prepare('INSERT INTO produto(nome,descricao,codigo,preco,categoria)VALUES(:nome, :descricao, :codigo, :preco, :categoria)');
         $stmt->execute(array(
-            ':nome' => $nome,
-            ':descricao' => $descricao,
-            ':codigo' => $codigo,
-            ':categoria' => $categoria,
+            ':nome'     => $nome,
+            ':descricao'=> $descricao,
+            ':codigo'   => $preco,
+            ':preco'    => $codigo,
+            ':categoria'=> $categoria,
         ));
         header("Location: prodDados.php");
     } catch (Exception $e) {
@@ -45,6 +47,12 @@ $consulta->execute();
                     <label for="inputcodigo3" class="col-sm-2 control-label">Código:</label>
                     <div class="col-sm-10">
                         <input type="text" name="codigo" class="col-lg-10" id="inputDescricao3" placeholder="Digite o código" required >
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label for="inputpreco3" class="col-sm-2 control-label">Preço:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="preco" class="col-lg-10" id="inputpreco3" placeholder="Digite o Preço" required value="<?php echo $_GET['preco']; ?>">
                     </div>
                 </div>
                 <div class="form-group">
